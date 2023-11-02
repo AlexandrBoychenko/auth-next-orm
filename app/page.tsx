@@ -4,11 +4,8 @@ import { GetStaticProps } from 'next';
 import Layout from './components/Layout';
 import { PostProps } from './components/Post';
 
-type Props = {
-  feed: PostProps[];
-};
 
-const Blog: React.FC<Props> = (props) => {
+const Blog: React.FC = () => {
   const feed = [
     {
       id: '1',
