@@ -1,44 +1,46 @@
-'use client'
-import React from 'react';
-import { GetStaticProps } from 'next';
+'use client';
+import React, { useEffect, useMemo, useState } from 'react';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import Layout from './components/Layout';
-import { PostProps } from './components/Post';
-
+import { PostProps, Post } from './components/Post';
+import prisma from '../lib/prisma';
+import { getPosts } from '@/utils/getPosts';
 
 const Blog: React.FC = () => {
-  const feed = [
-    {
-      id: '1',
-      title: 'Prisma is the perfect ORM for Next.js',
-      content:
-        '[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!',
-      published: false,
-      author: {
-        name: 'Nikolas Burk',
-        email: 'burk@prisma.io',
-      },
-    },
-  ];
+  const [response, setResponse] = useState<PostProps[] | null>(null);
+
+  const getFeed = async () => {
+    const res = await getPosts();
+    setResponse(res);
+  };
+
+  useEffect(() => {
+    getFeed();
+  }, []);
 
   return (
     <Layout>
       <div className="page">
-        <h1>Public Feed</h1>
+        <h1>Public Feed:</h1>
         <main>
-          {feed.map((post) => (
+          {response?.map((post) => (
             <div key={post.id} className="post">
-              {/* <Post post={post} /> */}
+              <Post {...post} />
             </div>
           ))}
         </main>
       </div>
       <style jsx>{`
+        .h1 {
+          margin-bottom: 2rem;
+        }
         .post {
           background: white;
           transition: box-shadow 0.1s ease-in;
         }
 
         .post:hover {
+          cursor: pointer;
           box-shadow: 1px 1px 3px #aaa;
         }
 
