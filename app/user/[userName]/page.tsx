@@ -16,5 +16,5 @@ export default function User() {
     getUserRes();
   }, []);
 
-  return <div>{user?.name}</div>;
+  return user ? <div>{user?.name}</div> : <div>Loading...</div>;
 }

@@ -21,7 +21,7 @@ export default function Page({ params }: { params: { postId: string } }) {
 
   const onClick = () => router.push(`/user/${response?.author?.name}`);
 
-  return (
+  return response ? (
     <div className="post-page" onClick={onClick}>
       <div>Author: {response?.author?.name}</div>
       <div>Email: {response?.author?.email}</div>
@@ -35,5 +35,7 @@ export default function Page({ params }: { params: { postId: string } }) {
         `}
       </style>
     </div>
+  ) : (
+    <div>Loading...</div>
   );
 }

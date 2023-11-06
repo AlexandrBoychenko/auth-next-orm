@@ -18,7 +18,7 @@ const Blog: React.FC = () => {
     getFeed();
   }, []);
 
-  return (
+  return response ? (
     <Layout>
       <div className="page">
         <h1>Public Feed:</h1>
@@ -49,6 +49,8 @@ const Blog: React.FC = () => {
         }
       `}</style>
     </Layout>
+  ) : (
+    <div>Loading...</div>
   );
 };
 
