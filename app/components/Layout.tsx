@@ -1,6 +1,7 @@
 'Use client';
 import React, { ReactNode } from 'react';
 import Header from './Header';
+import { SessionProvider } from 'next-auth/react';
 
 type Props = {
   children: ReactNode;
@@ -8,7 +9,9 @@ type Props = {
 
 const Layout: React.FC<Props> = (props) => (
   <div>
-    <Header />
+    <SessionProvider>
+      <Header />
+    </SessionProvider>
     <div className="layout">{props.children}</div>
     <style jsx global>{`
       html {
@@ -28,7 +31,6 @@ const Layout: React.FC<Props> = (props) => (
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
           Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
           'Segoe UI Symbol';
-        background: rgba(0, 0, 0, 0.05);
       }
 
       input,
